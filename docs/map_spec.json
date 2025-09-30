@@ -10,7 +10,7 @@
 
     {
       "data": {
-        "url": "../data/world_countries_110m_topo.json",
+        "url": "world_countries_110m_topo.json",
         "format": {
           "type": "topojson",
           "feature": "ne_110m_admin_0_countries"
@@ -25,7 +25,7 @@
 
     {
       "data": {
-        "url": "../data/world_countries_110m_topo.json",
+        "url": "world_countries_110m_topo.json",
         "format": {
           "type": "topojson",
           "feature": "ne_110m_admin_0_countries"
@@ -36,7 +36,7 @@
           "lookup": "properties.ADMIN",
           "from": {
             "data": {
-              "url": "../data/company_counts_by_country.csv"
+              "url": "company_counts_by_country.csv"
             },
             "key": "Country",
             "fields": ["CompanyCount"]
