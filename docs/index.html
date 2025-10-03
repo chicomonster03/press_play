@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Game Companies Choropleth Map</title>
+  <title>Game Visualisation Dashboard</title>
 
   <!-- Vega Embed Dependencies -->
   <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
@@ -13,36 +13,64 @@
     body {
       font-family: sans-serif;
       margin: 2rem;
-      text-align: center; 
+      text-align: center;
     }
 
-    #map {
+    .viz-container {
       max-width: 1000px;
+      margin: 0 auto 4rem auto;
+    }
+
+    .viz-title {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    #map, #scatter {
       margin: 0 auto;
       display: block;
     }
 
     #map > canvas,
-    #map > svg {
+    #map > svg,
+    #scatter > canvas,
+    #scatter > svg {
       display: block;
       margin: 0 auto;
     }
-</style>
+  </style>
 </head>
 
 <body>
-  <div style="text-align: center;">
-    <h1>Game Companies by Country</h1>
+
+  <!-- Choropleth Map Section -->
+  <div class="viz-container">
+    <h1 class="viz-title">Game Companies by Country</h1>
     <p style="max-width: 800px; margin: 0 auto 2rem auto; font-size: 1.1rem;">
       This choropleth map shows the number of game development companies per country, 
       based on aggregated metadata from a range of open datasets. Darker shades indicate higher 
       concentrations of companies. Hover over a country to view exact figures.
     </p>
+    <div id="map"></div>
   </div>
-  <div id="map"></div>
 
+  <!-- Scatterplot Section -->
+  <div class="viz-container">
+    <h1 class="viz-title">Review Score vs Main Story Length</h1>
+    <p style="max-width: 800px; margin: 0 auto 2rem auto; font-size: 1.1rem;">
+      This interactive scatterplot shows how review scores relate to how long games take to complete. 
+      Use the dropdown to filter by genre. Speedrunning outliers and annotations add extra context.
+    </p>
+    <div id="scatter"></div>
+  </div>
+
+  <!-- Embed both specs -->
   <script type="text/javascript">
     vegaEmbed('#map', 'map_spec.json')
+      .then(console.log)
+      .catch(console.warn);
+
+    vegaEmbed('#scatter', 'storytime_vs_score_spec.json')
       .then(console.log)
       .catch(console.warn);
   </script>
