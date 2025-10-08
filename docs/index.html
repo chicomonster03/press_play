@@ -12,29 +12,41 @@
   <style>
     body {
       font-family: sans-serif;
-      margin: 2rem;
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       text-align: center;
+      min-height: 100vh;
+      background-color: #fafafa;
+    }
+
+    h1 {
+      margin-bottom: 3rem;
     }
 
     .viz-container {
-      max-width: 1000px;
-      margin: 0 auto 4rem auto;
+      width: 90%;
+      max-width: 900px;
+      margin-bottom: 4rem;
     }
 
-    .viz-title {
-      font-size: 1.5rem;
+    .viz-container h2 {
+      margin-bottom: 0.5rem;
+    }
+
+    .viz-container p {
+      font-size: 0.95rem;
       margin-bottom: 1rem;
-    }
-
-    #map, #scatter {
-      margin: 0 auto;
-      display: block;
+      color: #333;
     }
 
     #map > canvas,
     #map > svg,
-    #scatter > canvas,
-    #scatter > svg {
+    #scatterplot > canvas,
+    #scatterplot > svg {
       display: block;
       margin: 0 auto;
     }
@@ -43,24 +55,22 @@
 <body>
   <h1>Video Game Visualisations</h1>
 
-  <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; align-items: flex-start;">
-    
-    <div style="max-width: 45%;">
-      <h2>Game Companies by Country</h2>
-      <p style="font-size: 0.95rem;">
-        This choropleth map shows the number of game development companies per country, based on aggregated metadata from open datasets. Darker shades indicate higher concentrations of companies.
-      </p>
-      <div id="map"></div>
-    </div>
+  <div class="viz-container">
+    <h2>Game Companies by Country</h2>
+    <p>
+      This choropleth map shows the number of game development companies per country, based on aggregated metadata from open datasets.
+      Darker shades indicate higher concentrations of companies.
+    </p>
+    <div id="map"></div>
+  </div>
 
-    <div style="max-width: 45%;">
-      <h2>Review Score vs Main Story Length</h2>
-      <p style="font-size: 0.95rem;">
-        This interactive scatterplot shows how review scores relate to main story length. Use the dropdown to filter by genre. Speedrunning outliers and annotations add context.
-      </p>
-      <div id="scatterplot"></div>
-    </div>
-
+  <div class="viz-container">
+    <h2>Review Score vs Main Story Length</h2>
+    <p>
+      This interactive scatterplot shows how review scores relate to main story length. Use the dropdown to filter by genre.
+      Speedrunning outliers and annotations add context.
+    </p>
+    <div id="scatterplot"></div>
   </div>
 
   <script type="text/javascript">
