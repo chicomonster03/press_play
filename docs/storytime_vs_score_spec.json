@@ -1,7 +1,11 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 700,
-  "height": 400,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "width": "container",
+  "height": "container",
   "data": {
     "url": "hltb_cleaned_with_genre.csv"
   },

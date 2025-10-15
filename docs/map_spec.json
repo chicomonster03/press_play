@@ -1,7 +1,11 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 900,
-  "height": 500,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "width": "container",
+  "height": "container",
   "projection": { "type": "equalEarth" },
   "config": {
     "view": { "stroke": null }
