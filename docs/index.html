@@ -6,7 +6,7 @@
 
   <!-- Fonts & Styles -->
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./node_modules/nes.css/css/nes.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/nes.css@2.3.0/css/nes.min.css" />
   <link rel="stylesheet" href="../view/css/global.css" />
 
   <!-- Vega Embed Dependencies -->
@@ -20,7 +20,7 @@
 
 <body>
 
-  <!-- Zelda-style Banner (FULL WIDTH) -->
+  <!-- Zelda-style Banner -->
   <div class="page-banner">
     <h1 class="banner-title flicker">PRESS PLAY</h1>              
     <a href="https://github.com/chicomonster03/press_play" target="_blank" class="github-link">
@@ -30,6 +30,7 @@
 
   <!-- Main Content Container -->
   <main class="container">
+
     <section-template
       align="left"
       title="Game Companies by Country"
@@ -46,9 +47,9 @@
       align="right"
       title="HLTB stats"
       body="
-        This choropleth map shows the number of game development companies 
-        per country, based on aggregated metadata from open datasets. Darker 
-        shades indicate higher concentrations of companies.
+        This dumbbell chart compares the Main Story and Completionist 
+        playtimes of popular video games, using scraped data from 
+        howlongtobeat.com.
       "
       vis-id="hltb_dumbbell"
       vis-height="500px">
@@ -82,51 +83,35 @@
 
   </main>
 
-  <!-- Collapsible Toggle JS -->
+  <!-- JS loader -->
   <script>
     window.addEventListener('DOMContentLoaded', () => {
-      // Enable collapsible sections
-      document.querySelectorAll('[data-collapsible="true"]').forEach(section => {
-        const toggleBtn = document.createElement('button');
-        toggleBtn.textContent = 'Toggle Section';
-        toggleBtn.className = 'snes-button';
-        toggleBtn.onclick = () => {
-          const layout = section.querySelector('.section-layout');
-          layout.style.display = layout.style.display === 'none' ? 'flex' : 'none';
-        };
-        section.insertBefore(toggleBtn, section.children[1]);
-        section.querySelector('.section-layout').style.display = 'none';
-      });
-
-      // Load Vega visualisations AFTER section-template is rendered
       setTimeout(() => {
         vegaEmbed('#map', 'map_spec.json', {
           actions: false,
           renderer: 'canvas'
         }).then(result => {
-          console.log('Map loaded successfully');
-          window.dispatchEvent(new Event('resize'));
+          console.log('Map loaded');
         }).catch(console.warn);
 
         vegaEmbed('#developers_map', '../specs/developers_map_spec.json', {
           actions: false,
           renderer: 'canvas'
         }).then(result => {
-          console.log('Developers Map loaded successfully');
-          window.dispatchEvent(new Event('resize'));
+          console.log('Developers Map loaded');
         }).catch(console.warn);
 
         vegaEmbed('#hltb_dumbbell', '../specs/hltb_dumbbell_spec.json', {
           actions: false,
           renderer: 'canvas'
         }).then(result => {
-          console.log('HLTB Dumbbell loaded successfully');
-          window.dispatchEvent(new Event('resize'));
+          console.log('HLTB Dumbbell loaded');
         }).catch(console.warn);
 
-        vegaEmbed('#scatterplot', 'storytime_vs_score_spec.json')
-          .then(console.log)
-          .catch(console.warn);
+        vegaEmbed('#scatterplot', '../storytime_vs_score_spec.json')
+          .then(result => {
+            console.log('Scatterplot loaded');
+          }).catch(console.warn);
       }, 100);
     });
   </script>
