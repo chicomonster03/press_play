@@ -1,0 +1,76 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Development Hubs: Game Studios by City",
+  "width": 900,
+  "height": 500,
+  "config": {
+    "view": { "stroke": null },
+    "background": "#1d1d1d",
+    "title": { "color": "white", "font": "Press Start 2P", "fontSize": 18 },
+    "axis": { "labelColor": "white", "titleColor": "white" },
+    "legend": { "labelColor": "white", "titleColor": "white" }
+  },
+  "projection": {
+    "type": "equalEarth"
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json",
+        "format": { "type": "topojson", "feature": "countries" }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#444",
+        "stroke": "#111"
+      }
+    },
+    {
+      "data": { "url": "cleaned/dev_density_data.csv" },
+      "mark": {
+        "type": "circle",
+        "opacity": 0.85,
+        "stroke": "#e0e0e0",
+        "strokeWidth": 0.5
+      },
+      "encoding": {
+        "longitude": { "field": "Longitude", "type": "quantitative" },
+        "latitude": { "field": "Latitude", "type": "quantitative" },
+        "size": {
+          "field": "DevCount",
+          "type": "quantitative",
+          "scale": { "range": [10, 1000] },
+          "legend": { "title": "# of Developers" }
+        },
+        "color": {
+          "field": "IndieRatio",
+          "type": "quantitative",
+          "scale": {
+            "domain": [0, 1],
+            "scheme": "blues"
+          },
+          "legend": {
+            "title": "Indie Studio Ratio",
+            "format": ".0%"
+          }
+        },
+        "tooltip": [
+          { "field": "City", "type": "nominal" },
+          { "field": "Country", "type": "nominal" },
+          { "field": "DevCount", "type": "quantitative", "title": "Studios" },
+          { "field": "MainCount", "type": "quantitative", "title": "Main Studios" },
+          { "field": "IndieCount", "type": "quantitative", "title": "Indie Studios" },
+          { "field": "IndieRatio", "type": "quantitative", "format": ".0%", "title": "Indie Ratio" }
+        ]
+      }
+    },
+    {
+      "data": { "graticule": { "step": [30, 30] } },
+      "mark": {
+        "type": "geoshape",
+        "stroke": "#333",
+        "strokeWidth": 0.5
+      }
+    }
+  ]
+}

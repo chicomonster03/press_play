@@ -15,7 +15,7 @@
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
 
   <!-- Custom Element Scripts -->
-  <script src="../view/components/section_template.js" defer></script>
+  <script src="view/components/section_template.js" defer></script>
 </head>
 
 <body>
@@ -24,7 +24,7 @@
   <div class="page-banner">
     <h1 class="banner-title flicker">PRESS PLAY</h1>              
     <a href="https://github.com/chicomonster03/press_play" target="_blank" class="github-link">
-      <img src="../static/github.png" alt="GitHub" class="github-icon pixel">
+      <img src="static/github.png" alt="GitHub" class="github-icon pixel">
     </a>
   </div>
 
@@ -94,21 +94,21 @@
           console.log('Map loaded');
         }).catch(console.warn);
 
-        vegaEmbed('#developers_map', '../specs/developers_map_spec.json', {
+        vegaEmbed('#developers_map', 'specs/developers_map_spec.json', {
           actions: false,
           renderer: 'canvas'
         }).then(result => {
           console.log('Developers Map loaded');
         }).catch(console.warn);
 
-        vegaEmbed('#hltb_dumbbell', '../specs/hltb_dumbbell_spec.json', {
+        vegaEmbed('#hltb_dumbbell', 'specs/hltb_dumbbell_spec.json', {
           actions: false,
           renderer: 'canvas'
         }).then(result => {
           console.log('HLTB Dumbbell loaded');
         }).catch(console.warn);
 
-        vegaEmbed('#scatterplot', '../storytime_vs_score_spec.json')
+        vegaEmbed('#scatterplot', 'storytime_vs_score_spec.json')
           .then(result => {
             console.log('Scatterplot loaded');
           }).catch(console.warn);

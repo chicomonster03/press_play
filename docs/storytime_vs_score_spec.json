@@ -1,0 +1,90 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "width": "container",
+  "height": "container",
+  "data": {
+    "url": "hltb_cleaned_with_genre.csv"
+  },
+  "params": [
+    {
+      "name": "GenreSelect",
+      "bind": {
+        "input": "select",
+        "options": [null, "RPG", "Horror", "Adventure", "Shooter", "Action", "Platform", "Puzzle"],
+        "labels": ["All", "RPG", "Horror", "Adventure", "Shooter", "Action", "Platform", "Puzzle"],
+        "name": "Filter by Genre: "
+      }
+    }
+  ],
+  "transform": [
+    {
+      "filter": "GenreSelect == null || datum.Primary_Genre == GenreSelect"
+    }
+  ],
+  "layer": [
+    {
+      "mark": "point",
+      "encoding": {
+        "x": {
+          "field": "Avg_Main_Story",
+          "type": "quantitative",
+          "title": "Main Story Time (hrs)"
+        },
+        "y": {
+          "field": "Review_Score",
+          "type": "quantitative",
+          "title": "Review Score"
+        },
+        "tooltip": [
+          { "field": "Name", "type": "nominal" },
+          { "field": "Release_Year", "type": "temporal" },
+          { "field": "Primary_Genre", "type": "nominal" },
+          { "field": "Avg_Main_Story", "type": "quantitative" },
+          { "field": "Review_Score", "type": "quantitative" }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "rule",
+        "color": "red",
+        "strokeDash": [4, 4]
+      },
+      "transform": [
+        {
+          "aggregate": [{"op": "median", "field": "Avg_Main_Story", "as": "median_story"}]
+        }
+      ],
+      "encoding": {
+        "x": {
+          "field": "median_story",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dy": -150,
+        "dx": 5,
+        "fontWeight": "bold",
+        "fontSize": 13,
+        "color": "red"
+      },
+      "transform": [
+        {
+          "aggregate": [{"op": "median", "field": "Avg_Main_Story", "as": "median_story"}]
+        }
+      ],
+      "encoding": {
+        "x": {"field": "median_story", "type": "quantitative"},
+        "text": {"value": "Median Main Story Time"}
+      }
+    }
+  ]
+}
