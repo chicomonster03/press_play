@@ -14,12 +14,11 @@
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
 
-  <!-- Custom Element Scripts -->
+  <!-- Custom Web Component -->
   <script src="view/components/section_template.js" defer></script>
 </head>
 
 <body>
-
   <!-- Zelda-style Banner -->
   <div class="page-banner">
     <h1 class="banner-title flicker">PRESS PLAY</h1>              
@@ -28,7 +27,7 @@
     </a>
   </div>
 
-  <!-- Main Content Container -->
+  <!-- Main Content -->
   <main class="container">
 
     <section-template
@@ -83,35 +82,37 @@
 
   </main>
 
-  <!-- JS loader -->
+  <!-- Vega Loader -->
   <script>
     window.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         vegaEmbed('#map', 'map_spec.json', {
           actions: false,
           renderer: 'canvas'
-        }).then(result => {
+        }).then(() => {
           console.log('Map loaded');
         }).catch(console.warn);
 
         vegaEmbed('#developers_map', 'specs/developers_map_spec.json', {
           actions: false,
           renderer: 'canvas'
-        }).then(result => {
+        }).then(() => {
           console.log('Developers Map loaded');
         }).catch(console.warn);
 
         vegaEmbed('#hltb_dumbbell', 'specs/hltb_dumbbell_spec.json', {
           actions: false,
           renderer: 'canvas'
-        }).then(result => {
+        }).then(() => {
           console.log('HLTB Dumbbell loaded');
         }).catch(console.warn);
 
-        vegaEmbed('#scatterplot', 'storytime_vs_score_spec.json')
-          .then(result => {
-            console.log('Scatterplot loaded');
-          }).catch(console.warn);
+        vegaEmbed('#scatterplot', 'storytime_vs_score_spec.json', {
+          actions: false,
+          renderer: 'canvas'
+        }).then(() => {
+          console.log('Scatterplot loaded');
+        }).catch(console.warn);
       }, 100);
     });
   </script>
