@@ -24,7 +24,7 @@
     },
     "title": "How Deep Are Your Games? Main vs Completionist Playtime",
     "width": 700,
-    "height": {"step": 40},
+    "height": 500,
     "encoding": {
         "y": {
         "field": "Game",

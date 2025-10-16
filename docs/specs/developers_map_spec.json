@@ -1,8 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Development Hubs: Game Studios by City",
-  "width": 900,
-  "height": 500,
   "config": {
     "view": { "stroke": null },
     "background": "#1d1d1d",
@@ -40,7 +38,11 @@
           "field": "DevCount",
           "type": "quantitative",
           "scale": { "range": [10, 1000] },
-          "legend": { "title": "# of Developers" }
+          "legend": { 
+            "title": "# of Developers",
+            "orient": "bottom",
+            "direction": "horizontal"
+          }
         },
         "color": {
           "field": "IndieRatio",
@@ -51,6 +53,8 @@
           },
           "legend": {
             "title": "Indie Studio Ratio",
+            "orient": "bottom",
+            "direction": "horizontal",
             "format": ".0%"
           }
         },

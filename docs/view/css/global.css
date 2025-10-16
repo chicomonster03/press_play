@@ -1,299 +1,200 @@
-/* ============================================================
-   GLOBAL.CSS — ZELDA NES EDITION
-   Inspired by: The Legend of Zelda (1986) “It’s Dangerous to Go Alone”
-   ============================================================ */
-
-/* ========== PALETTE VARIABLES ========== */
 :root {
-  --background: #000000;
-  --wall-dark: #9C5221;
-  --wall-light: #D77A33;
-  --flame-red: #FF0000;
-  --flame-orange: #FF7F00;
-  --link-green: #00FF00;
-  --text-light: #FFFFFF;
-  --accent-grey: #333333;
-  --accent-border: blue
+  --bg: #0f0f10;
+  --panel: #1c1d20;
+  --ink: #e6e6e6;
+  --muted: #a9abb3;
+  --accent: #ff5757;
+  --accent-2: #ffd057;
+  --outline: #2c2e34;
+  --grid-gap: 1.25rem;
+  --shadow: 0 2px 0 #000000, 0 0 0 4px #2c2e34 inset;
 }
 
-/* ========== FRAMEWORK ========== */
-@import url("./node_modules/nes.css/css/nes.css");
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
-
-/* ========== BASE TYPOGRAPHY ========== */
+html, body { height: 100%; }
 body {
-  font-family: 'VT323', monospace;
-  font-size: 1.15rem;
-  line-height: 1.6;
-  background-color: var(--background);
-  color: var(--text-light);
   margin: 0;
-  padding: 0;
-}
-
-h1, h2, h3, h4 {
-  font-family: 'Press Start 2P', monospace;
-  text-transform: uppercase;
-  margin-top: 0;
-  color: var(--text-light);
-}
-
-p {
   font-family: 'VT323', monospace;
-  font-size: 1.05rem;
-  color: var(--text-light);
+  font-size: 20px;
+  line-height: 1.45;
+  color: var(--ink);
+  background: var(--bg);
+  overflow-x: hidden;
 }
 
-/* ========== HEADER ========== */
-.header {
-  width: 100%;
-  text-align: left;
+h1, h2, h3 { font-family: 'Press Start 2P', monospace; letter-spacing: 0.5px; }
+h2 { font-size: 18px; margin: 0 0 0.5rem; color: var(--accent-2); }
+p { margin: 0.25rem 0 0; color: var(--ink); }
+a { color: var(--accent-2); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem clamp(1rem, 3vw, 2rem);
+  border-bottom: 4px solid var(--outline);
+  background:
+    linear-gradient(rgba(15,15,16,0.6), rgba(15,15,16,0.9)),
+    url('../static/zelda-wall.png');
+  background-size: auto;
+  background-repeat: repeat;
 }
 
-.header h1 {
-  font-size: 2.2rem;
-  color: var(--text-light);
+.title { font-size: clamp(18px, 3.5vw, 36px); color: var(--ink); text-shadow: 0 0 8px rgba(230,230,230,0.15); margin: 0; }
+.brand { display: inline-flex; align-items: center; gap: .75rem; }
+.brand .dot { width: 10px; height: 10px; background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+.gh { display:flex; align-items:center; gap:.5rem; font-size: 16px; color: var(--muted); }
+.gh img { 
+  width: 30px; 
+  height: 28px; 
+  image-rendering: pixelated; 
+  filter: invert(1);
+  transition: transform .15s ease; }
+.gh:hover img { 
+  transform: scale(1.1); 
+  filter: invert(1) brightness(1.3);
 }
 
-/* ========== LAYOUT ========== */
-.container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 2rem;
+.page { max-width: 1280px; margin: 0 auto; padding: 1.5rem clamp(1rem, 3vw, 2rem) 3rem; }
+.intro { margin: 1rem 0 1.5rem; color: var(--muted); }
+
+.card {
+  background: #161719;
+  border: 1px solid #2b2d31;
+  box-shadow: 0 0 0 2px #0a0a0a inset;
+  padding: 0.75rem 1rem;
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
+}
+
+.card header { display:flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.card header .label { font-size: 12px; color: var(--muted); text-transform: uppercase; }
+.card .desc { font-size: 18px; color: var(--muted); }
+
+.vis-wrapper { position: relative; width: 100%; height: 320px; }
+.vis-16x9 { aspect-ratio: 16 / 9; }
+.vis-4x3  { aspect-ratio: 4 / 3; }
+.vis-tall { aspect-ratio: 3 / 4; }
+.vega-host, .vega-host > * { width:100% !important; height:100% !important; }
+
+.sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+.note { color: var(--muted); font-size: 16px; }
+
+
+/* ===== Grid system: 4 columns ===== */
+.vis-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
 }
 
-/* ========== SECTION COMPONENTS ========== */
-
-.section-component {
-  padding: 2rem;
-  border: 4px solid var(--wall-light);
-  box-shadow: 0 0 0 4px var(--wall-dark) inset;
-  background-color: var(--accent-grey);
-  margin-bottom: 2rem;
+@media (max-width: 900px) {
+  .vis-grid {
+    grid-template-columns: 1fr; /* stack on mobile */
+  }
 }
 
-.section-header {
-  margin-bottom: 1rem;
+/* ===== Grid span utilities ===== */
+.span-1 { grid-column: span 1; } /* 1/4 width */
+.span-2 { grid-column: span 2; } /* 1/2 width */
+.span-3 { grid-column: span 3; } /* 3/4 width */
+.span-4 { grid-column: span 4; } /* full width */
+
+/* Reset spans on small screens */
+@media (max-width: 900px) {
+  .span-1, .span-2, .span-3, .span-4 {
+    grid-column: span 1;
+  }
 }
 
-.section-title {
-  font-size: 1.4rem;
-  margin-bottom: 0.5rem;
-  color: var(--flame-orange);
+/* ===== Text blocks and separators ===== */
+.text-block {
+  background: transparent;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.5;
 }
 
-.section-subtitle {
-  font-size: 1rem;
-  color: var(--flame-red);
-  margin-top: -0.5rem;
-  margin-bottom: 1rem;
+/* ===== Height variants ===== */
+.card.short .vis-wrapper { height: 250px; }
+.card.tall .vis-wrapper  { height: 480px; }
+
+/* Pixel-arrow separator */
+.separator{
+  grid-column: 1 / -1;
+  position: relative;
+  height: 6px;                 /* bar thickness */
+  margin: 4rem 0;
+  background: var(--outline);  /* the bar */
+  image-rendering: pixelated;
 }
 
-.section-layout {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  align-items: flex-start;
+/* center diamond */
+.separator .sep-center{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 10px;                 /* diamond size (change to taste) */
+  height: 10px;
+  background: var(--outline);
+  transform: translate(-50%,-50%) rotate(45deg);
+  image-rendering: pixelated;
 }
 
-/* Text and visualisation blocks */
-.section-text {
-  flex: 1;
-  min-width: 280px;
-  max-width: 400px;
-  text-align: left;
-  color: var(--text-light);
+/* pixel arrowheads built from 6px squares */
+.separator::before,
+.separator::after{
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 6px;                  /* pixel size */
+  height: 6px;
+  background: var(--outline);
+  transform: translateY(-50%);
+  image-rendering: pixelated;
 }
 
-.section-vis {
-  flex: 2;
-  min-width: 480px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* left arrow (stepped chevron) */
+.separator::before{
+  left: 0;
+  box-shadow:
+    6px -6px 0 0 var(--outline),
+    6px  6px 0 0 var(--outline),
+    12px -12px 0 0 var(--outline),
+    12px  12px 0 0 var(--outline),
+    18px -18px 0 0 var(--outline),
+    18px  18px 0 0 var(--outline);
 }
 
-/* Visual container wrapper (for vega) */
-.vega-container {
-  width: 100%;
-  height: 100%;
+/* right arrow (mirror of left) */
+.separator::after{
+  right: 0;
+  box-shadow:
+   -6px -6px 0 0 var(--outline),
+   -6px  6px 0 0 var(--outline),
+  -12px -12px 0 0 var(--outline),
+  -12px  12px 0 0 var(--outline),
+  -18px -18px 0 0 var(--outline),
+  -18px  18px 0 0 var(--outline);
 }
 
-.vega-container canvas,
-.vega-container svg {
-  width: 100% !important;
-  height: 100% !important;
-  display: block;
-}
-
-/* Alignment overrides */
-.section-component[data-align="left"] .section-layout,
-.section-component[data-align="right"] .section-layout {
-  flex-direction: row;
-  align-items: flex-start;
-}
-
-.section-component[data-align="left"] .section-text,
-.section-component[data-align="right"] .section-text {
-  flex: 0 0 320px;
-}
-
-.section-component[data-align="top"] .section-layout,
-.section-component[data-align="bottom"] .section-layout {
-  flex-direction: column;
-  align-items: center;
-}
-
-.section-component[data-align="top"] .section-text,
-.section-component[data-align="bottom"] .section-text,
-.section-component[data-align="top"] .section-vis,
-.section-component[data-align="bottom"] .section-vis {
-  width: 100%;
-}
-
-/* ========== SEPARATORS ========== */
-.separator {
-  width: 100%;
+/* === Center pixel icon === */
+.sep-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
   height: 12px;
-  background-color: var(--wall-dark);
-  background-image: repeating-linear-gradient(
-    45deg,
-    var(--wall-dark) 0,
-    var(--wall-dark) 4px,
-    var(--wall-light) 6px,
-    var(--wall-light) 11.5px
-  );
-  background-size: 16px 16px;
-  animation: stripeScroll 1s linear infinite;
-  margin: 3rem 0;
-}
-
-@keyframes stripeScroll {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: 16px 0;
-  }
-}
-
-/* ========== UTILITIES ========== */
-.full-width {
-  width: 100%;
-}
-
-.center {
-  text-align: center;
-}
-
-img.pixel {
+  background: var(--outline);
+  transform: translate(-50%, -50%) rotate(45deg);
   image-rendering: pixelated;
-  border: 4px solid var(--wall-light);
-  max-width: 100%;
-}
 
-/* ========== ACCESSIBILITY ========== */
-:focus {
-  outline: 2px dashed var(--flame-orange);
-  outline-offset: 4px;
-}
-
-.alt-text {
-  font-size: 0.9rem;
-  color: var(--text-light);
-  font-style: italic;
-}
-
-/* ========== ANIMATION ========== */
-@keyframes flicker {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
-}
-
-.flicker {
-  animation: flicker 3s infinite;
-}
-
-/* ========== BANNER ========== */
-
-.page-banner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.5rem 2rem;
-  background-color: var(--background);
-  font-family: 'Press Start 2P', monospace;
-  flex-direction: row;
-  width: 100%;
-  box-sizing: border-box;
-  border-bottom: 4px solid var(--accent-border);
-}
-
-.banner-title {
-  font-family: 'Press Start 2P', monospace;
-  font-size: 3rem;
-  margin: 0;
-  color: var(--text-light);
-  text-shadow: 0 0 8px var(--text-light);
-}
-
-.github-link {
-  display: flex;
-  align-items: center;
-}
-
-.github-icon {
-  height: 48px;
-  width: auto;
-  image-rendering: pixelated;
-  transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out;
-}
-
-.github-icon:hover {
-  transform: scale(1.15);
-  filter: brightness(1.5) drop-shadow(0 0 6px var(--flame-orange));
-}
-
-/* ========== RESPONSIVE ========== */
-@media screen and (max-width: 768px) {
-  .section-layout {
-    flex-direction: column !important;
-    align-items: center;
-  }
-
-  .section-text,
-  .section-vis {
-    width: 100% !important;
-    flex: 1 1 auto;
-  }
-
-  .banner-title {
-    font-size: 1.5rem;
-  }
-
-  .github-icon {
-    height: 32px;
-  }
-}
-
-
-.page-banner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2rem 3rem;
-  background-image: url('../../static/zelda-wall.png');
-  background-repeat: repeat;
-  background-size: auto;
-  background-position: top center;
-  font-family: 'Press Start 2P', monospace;
-  flex-direction: row;
-  width: 100%;
-  box-sizing: border-box;
-  border-bottom: 4px solid var(--wall-light);
-  color: var(--text-light);
+  /* add pixel “wings” using shadows for a simple glyph */
+  box-shadow:
+    0 -6px 0 0 var(--outline),
+    0  6px 0 0 var(--outline),
+    -6px 0 0 0 var(--outline),
+     6px 0 0 0 var(--outline);
 }
