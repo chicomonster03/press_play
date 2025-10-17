@@ -1,88 +1,82 @@
 {
-    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "description": "Game Time Depth: Main Story vs Completionist",
-    "data": {
-        "url": "cleaned/hltb_dumbbell_data.csv"
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "How much Bang for your Buck?",
+    "font": "Press Start 2P",
+    "fontSize": 14,
+    "color": "#ffd057"
+  },
+  "data": {"url": "cleaned/hltb_dumbbell_with_genre.csv"},
+  "width": 700,
+  "height": 400,
+  "params": [
+    {
+      "name": "GenreSelect",
+      "bind": {
+        "input": "select",
+        "options": [null, "RPG", "Horror", "Adventure", "Shooter", "Action", "Platform", "Puzzle"],
+        "labels": ["All Genres", "RPG", "Horror", "Adventure", "Shooter", "Action", "Platform", "Puzzle"],
+        "name": "Filter by Genre: "
+      }
+    }
+  ],
+  "transform": [
+    {"filter": "GenreSelect == null || datum.Primary_Genre == GenreSelect"},
+    {"filter": "datum.Avg_Main_Story != null"},
+    {"filter": "datum.Review_Score != null"}
+  ],
+  "mark": {
+    "type": "circle",
+    "size": 150,
+    "opacity": 0.7
+  },
+  "encoding": {
+    "x": {
+      "field": "Avg_Main_Story",
+      "type": "quantitative",
+      "title": "Main Story (Hours)",
+      "axis": {
+        "titleFont": "Press Start 2P",
+        "titleColor": "#ffd057",
+        "labelFont": "VT323",
+        "labelColor": "#e6e6e6",
+        "titleFontSize": 11
+      }
     },
-    "config": {
-        "background": "#1d1d1d",
-        "view": { "stroke": null },
-        "title": {
-        "color": "white",
-        "font": "Press Start 2P",
-        "fontSize": 16
-        },
-        "axis": {
-        "labelColor": "white",
-        "titleColor": "white",
-        "labelFontSize": 10
-        },
-        "legend": {
-        "labelColor": "white",
-        "titleColor": "white"
-        }
+    "y": {
+      "field": "Review_Score",
+      "type": "quantitative",
+      "title": "Review Score",
+      "axis": {
+        "titleFont": "Press Start 2P",
+        "titleColor": "#ffd057",
+        "labelFont": "VT323",
+        "labelColor": "#e6e6e6",
+        "titleFontSize": 11
+      }
     },
-    "title": "How Deep Are Your Games? Main vs Completionist Playtime",
-    "width": 700,
-    "height": 500,
-    "encoding": {
-        "y": {
-        "field": "Game",
-        "type": "nominal",
-        "sort": {
-            "field": "MainStoryMins",
-            "order": "descending"
-        },
-        "axis": {
-            "title": null,
-            "labelLimit": 300
-        }
-        }
+    "color": {
+      "field": "Primary_Genre",
+      "type": "nominal",
+      "title": "Genre",
+      "scale": {"scheme": "tableau20"},
+      "legend": {
+        "titleFont": "Press Start 2P",
+        "titleColor": "#ffd057",
+        "labelFont": "VT323",
+        "labelColor": "#e6e6e6",
+        "titleFontSize": 10
+      }
     },
-    "layer": [
-        {
-        "mark": {
-            "type": "rule",
-            "strokeWidth": 2,
-            "color": "#b58900"
-        },
-        "encoding": {
-            "x": {
-            "field": "MainStoryMins",
-            "type": "quantitative",
-            "title": "Playtime (minutes)"
-            },
-            "x2": { "field": "CompletionistMins" }
-        }
-        },
-        {
-        "mark": {
-            "type": "point",
-            "shape": "circle",
-            "filled": true,
-            "size": 100,
-            "color": "#2aa198"
-        },
-        "encoding": {
-            "x": { "field": "MainStoryMins", "type": "quantitative" },
-            "tooltip": [
-            { "field": "Game", "type": "nominal" },
-            { "field": "MainStoryMins", "type": "quantitative", "title": "Main Story (min)" },
-            { "field": "CompletionistMins", "type": "quantitative", "title": "Completionist (min)" }
-            ]
-        }
-        },
-        {
-        "mark": {
-            "type": "point",
-            "shape": "triangle",
-            "filled": true,
-            "size": 100,
-            "color": "#dc322f"
-        },
-        "encoding": {
-            "x": { "field": "CompletionistMins", "type": "quantitative" }
-        }
-        }
+    "tooltip": [
+      {"field": "Name", "type": "nominal", "title": "Game"},
+      {"field": "Primary_Genre", "type": "nominal", "title": "Genre"},
+      {"field": "Review_Score", "type": "quantitative", "title": "Score"},
+      {"field": "Avg_Main_Story", "type": "quantitative", "title": "Main Story (hrs)", "format": ".1f"}
     ]
+  },
+  "config": {
+    "view": {"stroke": "transparent"},
+    "background": "transparent"
+  }
 }

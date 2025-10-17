@@ -10,6 +10,7 @@
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="view/css/global.css" />
+  <link rel="stylesheet" href="view/css/global.css?v=8bit" />
 
   <!-- Vega stack -->
   <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
@@ -33,85 +34,131 @@
   <!-- ===== MAIN CONTENT ===== -->
   <main class="page" id="main" role="main">
     <p class="intro note">
-      A flexible 4-column layout for Vega-Lite visualisations, allowing quarter-, half-, three-quarter-, and full-width sections.
-      Resize your window to see how it collapses gracefully.
+      <br>Lorem ipsum dolor sit amet consectetur adipiscing elit. <br>Quisque faucibus ex sapien vitae pellentesque 
+      sem placerat. <br>In id cursus mi pretium tellus duis convallis.
     </p>
 
-    <section class="vis-grid" aria-label="Visualisation grid">
+  <!-- ========================================================== -->
+  <!--                          SECTION                           -->
+  <!-- ========================================================== -->
+  <!-- map -->
 
-      <!-- Row 1: quarter text + three-quarter chart -->
+    <!-- Separator -->
+    <div class="separator"><span class="sep-icon"></span></div>
+
+    <section class="vis-grid" aria-label="Visualisation grid">
       <div class="text-block span-1">
-        <p>Japan leads global RPG development, with dense clusters of studios near Tokyo and Osaka.</p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque 
+          sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. 
+          Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia 
+          integer nunc posuere. 
+        </p>
       </div>
 
       <article class="card span-3" aria-labelledby="dev-map-h">
         <header>
-          <h2 id="dev-map-h">Game Developers by Country</h2>
-          <span class="label">Map</span>
+          <h2 id="dev-map-h">Which Countries Love Speedrunning?</h2>
         </header>
-        <p class="desc">Number of development companies per country. Darker regions = denser clusters.</p>
-        <div class="vis-wrapper vis-4x3" aria-label="Developers map">
-          <div id="vis-developers-map" class="vega-host"></div>
+        <div class="vis-wrapper vis-map" aria-label="Speedrunning map">
+          <div id="vis-speedrun-area-cart" class="vega-host"></div>
         </div>
       </article>
 
-      <!-- Row 2: half + half -->
+  <!-- ========================================================== -->
+  <!--                          SECTION                           -->
+  <!-- ========================================================== -->
+  <!-- radar set -->
+      <!-- Separator -->
+      <div class="separator"><span class="sep-icon"></span></div>
+
+
+      <article class="text-block span-4" aria-labelledby="hltb-h">
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque 
+          sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. 
+          Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia 
+          integer nunc posuere. 
+        </p>
+      </article>
+
+      <article class="card span-1" aria-labelledby="map2-h">
+        <h2 id="dev-map-h">Radar</h2>
+      </article>
+      <article class="card span-1" aria-labelledby="map2-h">
+        <h2 id="dev-map-h">Radar</h2>
+      </article>
+      <article class="card span-1" aria-labelledby="map2-h">
+        <h2 id="dev-map-h">Radar</h2>
+      </article>
+      <article class="card span-1" aria-labelledby="map2-h">
+        <h2 id="dev-map-h">Radar</h2>
+      </article>
+
+  <!-- ========================================================== -->
+  <!--                          SECTION                           -->
+  <!-- ========================================================== -->
+  <!-- dumbbell -->
+
+      <!-- Separator -->
+      <div class="separator"><span class="sep-icon"></span></div>
+
       <article class="card span-2" aria-labelledby="hltb-h">
-        <header>
-          <h2 id="hltb-h">HLTB: Main vs Completionist</h2>
-          <span class="label">Dumbbell</span>
-        </header>
-        <p class="desc">Compare Main Story and Completionist playtimes for popular titles.</p>
-        <div class="vis-wrapper vis-4x3" aria-label="HLTB dumbbell">
+        <div class="vis-wrapper vis-map" aria-label="HLTB dumbbell">
+          <h2 id="dev-map-h">Dumbbell</h2>
           <div id="vis-hltb" class="vega-host"></div>
         </div>
       </article>
-
-      <article class="card span-2" aria-labelledby="map2-h">
-        <header>
-          <h2 id="map2-h">Game Companies by Country</h2>
-          <span class="label">Map</span>
-        </header>
-        <p class="desc">Alternate choropleth showing company counts by nation.</p>
-        <div class="vis-wrapper vis-4x3" aria-label="Companies map">
-          <div id="vis-map2" class="vega-host"></div>
-        </div>
-      </article>
-
-      <!-- Separator -->
-      <div class="separator"><span class="sep-icon"></span></div>
-
-      <!-- Row 3: full-width explanation -->
-      <div class="text-block span-4">
+      <article class="text-block span-2" aria-labelledby="hltb-h">
         <p>
-          Developer density and genre distribution reveal clear geographic trends. 
-          RPGs dominate in Japan, shooters in the US, and indie titles in Western Europe.
+          Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque 
+          sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. 
+          Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia 
+          integer nunc posuere. 
         </p>
-      </div>
-
-      <!-- Row 4: three-quarter visual + quarter text -->
-      <article class="card span-3 tall" aria-labelledby="scatter-h">
-        <header>
-          <h2 id="scatter-h">Review Score vs Story Length</h2>
-          <span class="label">Scatter</span>
-        </header>
-        <p class="desc">Shows correlation between review scores and average story length.</p>
-        <div class="vis-wrapper vis-16x9" aria-label="Score vs length">
-          <div id="vis-scatter" class="vega-host"></div>
-        </div>
       </article>
+
+  <!-- ========================================================== -->
+  <!--                          SECTION                           -->
+  <!-- ========================================================== -->
+  <!-- scatterplot -->
 
       <!-- Separator -->
       <div class="separator"><span class="sep-icon"></span></div>
 
-      <div class="text-block span-1">
+      <article class="text-block span-2" aria-labelledby="hltb-h">
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque 
+          sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. 
+          Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia 
+          integer nunc posuere. 
+        </p>
+      </article>
+
+      <article class="card span-2 tall" aria-labelledby="scatter-h">
+        <header>
+          <h2 id="hltb-h">How much Bang for your Buck?</h2>
+        </header>
+        <div class="vis-wrapper vis-map">
+          <div id="vis-hltb-scatter" class="vega-host"></div>
+        </div>
+      </article>
+
+  <!-- ========================================================== -->
+  <!--                          SECTION                           -->
+  <!-- ========================================================== -->
+  <!-- linechart -->
+
+      <!-- Separator -->
+      <div class="separator"><span class="sep-icon"></span></div>
+
+      <div class="text-block span-4">
         <p>Shorter, more replayable titles often receive higher aggregate ratings.</p>
       </div>
 
-      <!-- Row 5: full-width chart -->
       <article class="card span-4" aria-labelledby="timeline-h">
         <header>
-          <h2 id="timeline-h">Genre Evolution Over Time</h2>
+          <h2 id="dev-map-h">linechart</h2>
           <span class="label">Line</span>
         </header>
         <p class="desc">Genre trends based on game releases from 1980–2025.</p>
@@ -120,8 +167,119 @@
         </div>
       </article>
 
+  <!-- ========================================================== -->
+  <!--                          SECTION                           -->
+  <!-- ========================================================== -->
+  <!-- violin set -->
+
+      <!-- Separator -->
+      <div class="separator"><span class="sep-icon"></span></div>
+
+      <article class="card span-1 tall" aria-labelledby="scatter-h">
+        <header>
+          <h2 id="dev-map-h">Violin</h2>
+        </header>
+      </article>
+
+      <div class="text-block span-2">
+        <p>Shorter, more replayable titles often receive higher aggregate ratings.</p>
+      </div>
+
+
+      <article class="card span-1 tall" aria-labelledby="scatter-h">
+        <header>
+          <h2 id="dev-map-h">Violin</h2>
+        </header>
+      </article>
+
+      <article class="card span-1 tall" aria-labelledby="scatter-h">
+        <header>
+          <h2 id="dev-map-h">Violin</h2>
+        </header>
+      </article>
+
+      <div class="text-block span-2"></div>
+
+      <article class="card span-1 tall" aria-labelledby="scatter-h">
+        <header>
+          <h2 id="dev-map-h">Violin</h2>
+        </header>
+      </article>
+
+  <!-- ========================================================== -->
+  <!--                          SECTION                           -->
+  <!-- ========================================================== -->
+  <!-- bar chart -->
+
+      <!-- Separator -->
+      <div class="separator"><span class="sep-icon"></span></div>
+
+      <article class="card span-2 tall" aria-labelledby="scatter-h">
+        <header>
+          <h2 id="dev-map-h">Bar</h2>
+        </header>
+      </article>
+
+      <div class="text-block span-2">
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque 
+          sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. 
+          Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia 
+          integer nunc posuere. 
+        </p>
+      </div>
+
+  <!-- ========================================================== -->
+  <!--                          SECTION                           -->
+  <!-- ========================================================== -->
+  <!-- bar chart (tbc)-->
+
+      <!-- Separator -->
+      <div class="separator"><span class="sep-icon"></span></div>
+
+      <div class="text-block span-2">
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque 
+          sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. 
+          Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia 
+          integer nunc posuere. 
+        </p>
+      </div>
+
+      <article class="card span-2 tall" aria-labelledby="scatter-h">
+        <header>
+          <h2 id="dev-map-h">Bar</h2>
+        </header>
+      </article>
+
+  <!-- ========================================================== -->
+  <!--                          SECTION                           -->
+  <!-- ========================================================== -->
+  <!-- area chart -->
+
+      <!-- Separator -->
+      <div class="separator"><span class="sep-icon"></span></div>
+      
+      <div class="text-block span-4">
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque 
+          sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. 
+          Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia 
+          integer nunc posuere. 
+        </p>
+      </div>
+
+      <article class="card span-4 tall" aria-labelledby="scatter-h">
+        <header>
+          <h2 id="dev-map-h">area</h2>
+        </header>
+      </article>
+
+
     </section>
   </main>
+
+
 
   <!-- ===== VEGA EMBED LOADER ===== -->
   <script>
@@ -131,16 +289,32 @@
         renderer: 'canvas',
         config: {
           background: 'transparent',
-          axis: { labelColor: '#e6e6e6', titleColor: '#e6e6e6', domainColor: '#4b4d55', tickColor: '#4b4d55' },
-          legend: { labelColor: '#e6e6e6', titleColor: '#e6e6e6' },
-          title: { color: '#e6e6e6' }
+          axis: { 
+            labelColor: '#e6e6e6', 
+            titleColor: '#e6e6e6', 
+            domainColor: '#4b4d55', 
+            tickColor: '#4b4d55' 
+          },
+          legend: { 
+            labelColor: '#e6e6e6', 
+            titleColor: '#e6e6e6' 
+          },
+          title: { 
+            color: '#e6e6e6' 
+          }
         }
-      }).catch((e) => console.warn('[Vega error]', specPath, e));
+      })
+      .then(result => {
+        console.log(`✓ Loaded: ${specPath}`);
+      })
+      .catch(e => console.warn('[Vega error]', specPath, e));
     }
 
     window.addEventListener('DOMContentLoaded', () => {
       mountVega('#vis-developers-map', 'specs/developers_map_spec.json');
+      mountVega('#vis-speedrun-area-cart', 'specs/speedrun_area_cart_spec.json');
       mountVega('#vis-hltb', 'specs/hltb_dumbbell_spec.json');
+      mountVega('#vis-hltb-scatter', 'specs/hltb_scatter_spec.json');
       mountVega('#vis-map2', 'map_spec.json');
       mountVega('#vis-scatter', 'storytime_vs_score_spec.json');
       mountVega('#vis-timeline', 'specs/genre_timeline_spec.json');

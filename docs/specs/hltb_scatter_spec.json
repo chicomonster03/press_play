@@ -1,0 +1,95 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 550,
+  "height": 380,
+
+  "data": {
+    "url": "cleaned/hltb_w_genre.csv",
+    "format": {
+      "type": "csv",
+      "parse": {"Avg_Main_Story": "number", "Review_Score": "number"}
+    }
+  },
+
+  "params": [
+    {
+      "name": "genreSelect",
+      "value": null,
+      "bind": {
+        "input": "select",
+        "options": [null, "Action", "Adventure", "RPG", "Shooter", "Horror"],
+        "labels": [
+          "All Genres",
+          "Action",
+          "Adventure",
+          "RPG",
+          "Shooter",
+          "Horror"
+        ],
+        "name": "Filter by Genre: "
+      }
+    }
+  ],
+
+  "transform": [{"filter": "genreSelect == null || datum.Primary_Genre == genreSelect"}],
+
+  "mark": {
+    "type": "circle",
+    "size": 90,
+    "opacity": 0.8,
+    "stroke": "#000000",
+    "strokeWidth": 0.5
+  },
+
+  "encoding": {
+    "x": {
+      "field": "Avg_Main_Story",
+      "type": "quantitative",
+      "title": "Main Story (Hours)",
+      "axis": {
+        "labelFont": "VT323",
+        "labelFontSize": 14,
+        "labelColor": "#e6e6e6",
+        "titleFont": "VT323",
+        "titleFontSize": 16,
+        "titleColor": "#ffd057",
+        "tickColor": "#4b4d55"
+      }
+    },
+    "y": {
+      "field": "Review_Score",
+      "type": "quantitative",
+      "title": "Review Score",
+      "axis": {
+        "labelFont": "VT323",
+        "labelFontSize": 14,
+        "labelColor": "#e6e6e6",
+        "titleFont": "VT323",
+        "titleFontSize": 16,
+        "titleColor": "#ffd057",
+        "tickColor": "#4b4d55"
+      }
+    },
+    "tooltip": [
+      {"field": "Name", "title": "Game"},
+      {"field": "Primary_Genre", "title": "Genre"},
+      {"field": "Review_Score", "title": "Review Score"},
+      {"field": "Avg_Main_Story", "title": "Main Story Hours", "format": ".1f"}
+    ]
+  },
+
+  "config": {
+    "background": "transparent",
+    "view": {"stroke": "transparent"},
+    "axis": {
+      "domainColor": "#4b4d55",
+      "gridColor": "#2c2e34",
+      "gridOpacity": 0.4,
+      "tickColor": "#4b4d55",
+      "titleFont": "VT323",
+      "titleFontSize": 16,
+      "labelFont": "VT323",
+      "labelFontSize": 14
+    }
+  }
+}

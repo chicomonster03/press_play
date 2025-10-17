@@ -4,10 +4,10 @@
     "type": "fit",
     "contains": "padding"
   },
-  "width": "container",
+  "width": 200,
   "height": "container",
   "data": {
-    "url": "hltb_cleaned_with_genre.csv"
+    "url": "cleaned/hltb_w_genre.csv"
   },
   "params": [
     {
