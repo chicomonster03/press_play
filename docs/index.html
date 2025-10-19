@@ -80,19 +80,32 @@
           Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia 
           integer nunc posuere. 
         </p>
+        <img src="view/static/zelda-navi.png" alt="Navi fairy" class="floating-navi" />
       </article>
 
       <article class="card span-1" aria-labelledby="map2-h">
-        <h2 id="dev-map-h">Radar</h2>
+        <h2 id="dev-map-h">Popularity</h2>
+        <div class="vis-wrapper vis-map">
+          <div id="vis-oot-cat-pop" class="vega-host"></div>
+        </div>
       </article>
       <article class="card span-1" aria-labelledby="map2-h">
-        <h2 id="dev-map-h">Radar</h2>
+        <h2 id="dev-map-h">World Records</h2>
+        <div class="vis-wrapper vis-map">
+          <div id="vis-oot-cat-wr" class="vega-host"></div>
+        </div>
       </article>
       <article class="card span-1" aria-labelledby="map2-h">
-        <h2 id="dev-map-h">Radar</h2>
+        <h2 id="dev-map-h">Competition</h2>
+        <div class="vis-wrapper vis-map">
+          <div id="vis-oot-cat-spread" class="vega-host"></div>
+        </div>
       </article>
       <article class="card span-1" aria-labelledby="map2-h">
-        <h2 id="dev-map-h">Radar</h2>
+        <h2 id="dev-map-h">Freshness</h2>
+        <div class="vis-wrapper vis-map">
+          <div id="vis-oot-cat-freshness" class="vega-host"></div>
+        </div>
       </article>
 
   <!-- ========================================================== -->
@@ -312,6 +325,12 @@
 
     window.addEventListener('DOMContentLoaded', () => {
       mountVega('#vis-developers-map', 'specs/developers_map_spec.json');
+
+      mountVega('#vis-oot-cat-pop', 'specs/oot_radar_cat_pop_spec.json');
+      mountVega('#vis-oot-cat-wr', 'specs/oot_radar_cat_WR_spec.json');
+      mountVega('#vis-oot-cat-spread', 'specs/oot_radar_cat_spread_spec.json');
+      mountVega('#vis-oot-cat-freshness', 'specs/oot_radar_cat_freshness_spec.json');
+
       mountVega('#vis-speedrun-area-cart', 'specs/speedrun_area_cart_spec.json');
       mountVega('#vis-hltb', 'specs/hltb_dumbbell_spec.json');
       mountVega('#vis-hltb-scatter', 'specs/hltb_scatter_spec.json');

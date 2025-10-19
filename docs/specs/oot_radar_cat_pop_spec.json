@@ -1,0 +1,93 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 265,
+  "height": 200,
+  "data": {"url": "data/speedrun_category_data.csv"},
+  "transform": [
+    {
+      "filter": "datum.Game_Id == 13 && (datum.Category == 'Any%' || (datum.Category == 'Glitchless' && datum.Subcategory == 'Any%,Unrestricted') || (datum.Category == 'No Wrong Warp' && datum.Subcategory == 'No SRM') || (datum.Category == '100%' && datum.Subcategory == 'No SRM'))"
+    },
+    {
+      "calculate": "datum.Category == 'Any%' ? 'Any%' : datum.Category == 'Glitchless' ? 'Any% Glitchless' : datum.Category == 'No Wrong Warp' ? 'No Wrong Warp' : '100%'",
+      "as": "Category_Label"
+    },
+    {"calculate": "datum.Num_Runs / 50", "as": "Normalized_Runs"}
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "arc",
+        "innerRadius": 20
+      },
+      "params": [
+        {
+          "name": "hover",
+          "select": {"type": "point", "on": "mouseover", "clear": "mouseout"}
+        }
+      ],
+      "encoding": {
+        "theta": {
+          "field": "Category_Label",
+          "type": "nominal",
+          "stack": false,
+          "sort": ["Any%", "Any% Glitchless", "No Wrong Warp", "100%"]
+        },
+        "radius": {
+          "field": "Normalized_Runs",
+          "type": "quantitative",
+          "scale": {"domain": [0, 12], "range": [20, 100]}
+        },
+        "color": {
+            "field": "Category_Label",
+            "type": "nominal",
+            "scale": {
+                "domain": ["Any%", "Any% Glitchless", "No Wrong Warp", "100%"],
+                "range": ["#01a049", "#ff5757", "#5b9bd5", "#9b59b6"]
+            },
+          "legend": null
+        },
+        "stroke": {
+          "condition": {"param": "hover", "empty": false, "value": "#ff5757"},
+          "field": "Category_Label",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Any%", "Any% Glitchless", "No Wrong Warp", "100%"],
+            "range": ["#01a049", "#ff5757", "#5b9bd5", "#9b59b6"]
+          }
+        },
+        "strokeWidth": {
+            "condition": {"param": "hover", "empty": false, "value": 2.5},
+            "value": 0.5
+        },
+        "opacity": {"value": 0.7},
+        "tooltip": [
+          {"field": "Category_Label", "type": "nominal", "title": "Category"},
+          {"field": "Num_Runs", "type": "quantitative", "title": "Total Runs"}
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "radiusOffset": 15,
+        "fontSize": 16,
+        "font": "VT323",
+        "color": "#e6e6e6"
+      },
+      "encoding": {
+        "theta": {
+          "field": "Category_Label",
+          "type": "nominal",
+          "stack": false,
+          "sort": ["Any%", "Any% Glitchless", "No Wrong Warp", "100%"]
+        },
+        "radius": {"value": 110},
+        "text": {"field": "Category_Label", "type": "nominal"}
+      }
+    }
+  ],
+  "config": {
+    "view": {"stroke": null},
+    "background": "transparent"
+  }
+}

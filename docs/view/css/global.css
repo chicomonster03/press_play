@@ -329,8 +329,40 @@ a:hover { text-decoration: underline; }
   border-top: none !important;
 }
 
+/* ========== FLOATING NAVI ========== */
+.floating-navi {
+  width: 40px;
+  height: 40px;
+  float: right;
+  margin-right: 1rem;
+  margin-top: 0.25rem;
+  image-rendering: pixelated;
+  animation: float 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 8px rgba(135, 206, 235, 0.6));
+}
 
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
 
+/* Optional: Add a subtle glow pulse */
+@keyframes float-glow {
+  0%, 100% {
+    transform: translateY(0px);
+    filter: drop-shadow(0 0 8px rgba(135, 206, 235, 0.4));
+  }
+  50% {
+    transform: translateY(-10px);
+    filter: drop-shadow(0 0 12px rgba(135, 206, 235, 0.8));
+  }
+}
 
-
-
+/* If you want the glow to pulse with the float: */
+.floating-navi.glow {
+  animation: float-glow 3s ease-in-out infinite;
+}
