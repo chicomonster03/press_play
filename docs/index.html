@@ -10,7 +10,6 @@
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="view/css/global.css" />
-  <link rel="stylesheet" href="view/css/global.css?v=8bit" />
 
   <!-- Vega stack -->
   <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
@@ -34,8 +33,8 @@
   <!-- ===== MAIN CONTENT ===== -->
   <main class="page" id="main" role="main">
     <p class="intro note">
-      <br>Lorem ipsum dolor sit amet consectetur adipiscing elit. <br>Quisque faucibus ex sapien vitae pellentesque 
-      sem placerat. <br>In id cursus mi pretium tellus duis convallis.
+      <br>
+        Speedrunning: The art of "play game fast" <br>This visualisation explores the speedrunning community<br>and the trends behind the games that form it.
     </p>
 
   <!-- ========================================================== -->
@@ -45,23 +44,26 @@
 
     <!-- Separator -->
     <div class="separator"><span class="sep-icon"></span></div>
-
+        <header>
+          <h2>Which Countries Love Speedrunning?<br><br></h2>
+        </header>
     <section class="vis-grid" aria-label="Visualisation grid">
       <div class="text-block span-1">
         <p>
-          Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque 
-          sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. 
-          Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia 
-          integer nunc posuere. 
+        The United States dominates with over 400,000 speedruns, driven by its large population, 
+        streaming culture, and American-developed games. Japan ranks second, benefiting from being 
+        home to Nintendo, Sega, and other major developers.<br><br>
+
+        Europe and Canada show solid participation. Antarctica's data is likely inaccurate due to 
+        speedrunners listing joke nationalities. The map reveals speedrunning as a predominantly 
+        Western and Japanese phenomenon.
         </p>
       </div>
 
       <article class="card span-3" aria-labelledby="dev-map-h">
-        <header>
-          <h2 id="dev-map-h">Which Countries Love Speedrunning?</h2>
-        </header>
-        <div class="vis-wrapper vis-map" aria-label="Speedrunning map">
-          <div id="vis-speedrun-area-cart" class="vega-host"></div>
+        <div class="vis-wrapper" aria-label="Speedrunning map">
+          <h3>Speedrunner Nationality versus Speedrunning Popularity</h3>
+          <div id="vis-speedrun-map" class="vega-host"></div>
         </div>
       </article>
 
@@ -71,39 +73,48 @@
   <!-- radar set -->
       <!-- Separator -->
       <div class="separator"><span class="sep-icon"></span></div>
-
+      <article class="text-block span-4" aria-labelledby="hltb-h">
+        <header>
+          <h2>Ocarina of Time: A Category for Everyone</h2>
+        </header>
+      </article>
 
       <article class="text-block span-4" aria-labelledby="hltb-h">
         <p>
-          Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque 
-          sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. 
-          Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia 
-          integer nunc posuere. 
+        The Legend of Zelda: Ocarina of Time, one of my favorite games, offers speedrunners 
+        multiple ways to compete. Any% allows all glitches for the fastest completion. 
+        Any% Glitchless removes major skips. No Wrong Warp bans a specific teleportation 
+        glitch that skips large game portions. 100% requires completing all objectives.<br><br>
+
+        Popularity shows runner interest in each category. World Records displays completion 
+        times, with Any% dramatically shorter due to glitch exploitation. Competition reveals how 
+        close the top runners are: Any% shows an incredibly tight 0.2-second gap between first and 
+        third place. Freshness indicates how recently records were broken, indicating the lasting popularity of a classic game.
         </p>
         <img src="view/static/zelda-navi.png" alt="Navi fairy" class="floating-navi" />
       </article>
 
-      <article class="card span-1" aria-labelledby="map2-h">
-        <h2 id="dev-map-h">Popularity</h2>
-        <div class="vis-wrapper vis-map">
+      <article class="card span-1">
+        <h3>Popularity</h3>
+        <div class="vis-wrapper">
           <div id="vis-oot-cat-pop" class="vega-host"></div>
         </div>
       </article>
-      <article class="card span-1" aria-labelledby="map2-h">
-        <h2 id="dev-map-h">World Records</h2>
-        <div class="vis-wrapper vis-map">
+      <article class="card span-1">
+        <h3>World Records</h3>
+        <div class="vis-wrapper">
           <div id="vis-oot-cat-wr" class="vega-host"></div>
         </div>
       </article>
-      <article class="card span-1" aria-labelledby="map2-h">
-        <h2 id="dev-map-h">Competition</h2>
-        <div class="vis-wrapper vis-map">
+      <article class="card span-1">
+        <h3>Competition</h3>
+        <div class="vis-wrapper">
           <div id="vis-oot-cat-spread" class="vega-host"></div>
         </div>
       </article>
-      <article class="card span-1" aria-labelledby="map2-h">
-        <h2 id="dev-map-h">Freshness</h2>
-        <div class="vis-wrapper vis-map">
+      <article class="card span-1">
+        <h3>Freshness</h3>
+        <div class="vis-wrapper">
           <div id="vis-oot-cat-freshness" class="vega-host"></div>
         </div>
       </article>
@@ -115,179 +126,155 @@
 
       <!-- Separator -->
       <div class="separator"><span class="sep-icon"></span></div>
+      <article class="text-block span-4" aria-labelledby="hltb-h">
+        <header>
+          <h2>How Game Depth Affects Quality</h2>
+        </header>
+      </article>
 
       <article class="card span-2" aria-labelledby="hltb-h">
-        <div class="vis-wrapper vis-map" aria-label="HLTB dumbbell">
-          <h2 id="dev-map-h">Dumbbell</h2>
-          <div id="vis-hltb" class="vega-host"></div>
+        <div class="vis-wrapper" aria-label="HLTB dumbbell">
+          <h3>Game Depth Across Genres</h3>
+          <div id="vis-hltb-dumbbell" class="vega-host"></div>
         </div>
       </article>
       <article class="text-block span-2" aria-labelledby="hltb-h">
         <p>
-          Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque 
-          sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. 
-          Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia 
-          integer nunc posuere. 
+        This dumbbell chart explores the relationship between game length and review scores across genres.<br><br>
+
+        The review score filters reveal interesting patterns. When viewing all games, RPGs show the largest gap between main story and completionist playtimes, reflecting their abundance of side quests and collectibles. However, filtering for highly-rated games (85+) reveals that well-received titles across all genres tend to have more substantial optional content. Conversely, poorly-rated games (below 15) show minimal difference between main story and completionist times, suggesting that lack of depth may contribute to lower scores.<br><br>
+
+        Horror and Platformer genres consistently show the smallest gaps, indicating these genres prioritise focused, streamlined experiences regardless of review scores.
         </p>
       </article>
 
   <!-- ========================================================== -->
   <!--                          SECTION                           -->
   <!-- ========================================================== -->
-  <!-- scatterplot -->
+  <!-- heatmap -->
 
       <!-- Separator -->
       <div class="separator"><span class="sep-icon"></span></div>
+      <article class="text-block span-4" aria-labelledby="hltb-h">
+        <header>
+          <h2>How much Bang for your Buck?</h2>
+        </header>
+      </article>
+
 
       <article class="text-block span-2" aria-labelledby="hltb-h">
         <p>
-          Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque 
-          sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. 
-          Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia 
-          integer nunc posuere. 
+This heatmap reveals where games cluster in terms of length and review scores. The bright hotspot in the lower-left corner tells a clear story: most games are short (0-10 hours) and score in the 70-80 range. This represents the well-like but not groundbreaking category that dominates the market.<br><br>
+
+Filtering by genre reveals distinct patterns. RPGs spread across longer hour ranges with consistently high scores, reflecting the genre's emphasis on depth. Horror games cluster tightly around short playtimes, prioritising focused experiences over length. Platformers show similar brevity but with wider score variation.<br><br>
+
+The darkness above 90 hours is telling. Very few games justify extreme length, and those that do tend to be RPGs. This suggests that most developers understand the value of respecting player time rather than padding content arbitrarily.
         </p>
       </article>
 
       <article class="card span-2 tall" aria-labelledby="scatter-h">
         <header>
-          <h2 id="hltb-h">How much Bang for your Buck?</h2>
+          <h3 id="hltb-h">Review Score versus Time Spent</h3>
         </header>
-        <div class="vis-wrapper vis-map">
-          <div id="vis-hltb-scatter" class="vega-host"></div>
+        <div class="vis-wrapper">
+          <div id="vis-hltb-heatmap" class="vega-host"></div>
         </div>
       </article>
 
   <!-- ========================================================== -->
   <!--                          SECTION                           -->
   <!-- ========================================================== -->
-  <!-- linechart -->
+  <!-- stacked area chart -->
 
       <!-- Separator -->
       <div class="separator"><span class="sep-icon"></span></div>
+      <article class="text-block span-4" aria-labelledby="hltb-h">
+        <header>
+          <h2>What Genres are Most Popular?</h2>
+        </header>
+      </article>
 
       <div class="text-block span-4">
-        <p>Shorter, more replayable titles often receive higher aggregate ratings.</p>
+        <p>
+This stacked area chart tracks game releases by genre from 1980 to 2025, revealing dramatic shifts in the industry. The massive peak around 2015-2020 represents the indie game explosion, where digital distribution platforms like Steam democratised game development and publishing.<br><br>
+
+RPGs (orange) and Adventure games (blue) dominate the upper layers, reflecting their enduring popularity and the rise of indie RPG makers. Action games maintain steady presence throughout. Platformers (teal) show interesting waves, peaking during the 8-bit and 16-bit eras, declining in the 3D transition, then resurging with indie development.
       </div>
 
       <article class="card span-4" aria-labelledby="timeline-h">
         <header>
-          <h2 id="dev-map-h">linechart</h2>
-          <span class="label">Line</span>
+          <h3>Genre Popularity Over Time</h3>
         </header>
-        <p class="desc">Genre trends based on game releases from 1980–2025.</p>
-        <div class="vis-wrapper vis-16x9">
-          <div id="vis-timeline" class="vega-host"></div>
+        <div class="vis-wrapper">
+          <div id="vis-hltb-stacked" class="vega-host"></div>
         </div>
       </article>
 
   <!-- ========================================================== -->
   <!--                          SECTION                           -->
   <!-- ========================================================== -->
-  <!-- violin set -->
+  <!-- violin plot -->
 
       <!-- Separator -->
       <div class="separator"><span class="sep-icon"></span></div>
-
-      <article class="card span-1 tall" aria-labelledby="scatter-h">
+      <article class="text-block span-4" aria-labelledby="hltb-h">
         <header>
-          <h2 id="dev-map-h">Violin</h2>
-        </header>
-      </article>
-
-      <div class="text-block span-2">
-        <p>Shorter, more replayable titles often receive higher aggregate ratings.</p>
-      </div>
-
-
-      <article class="card span-1 tall" aria-labelledby="scatter-h">
-        <header>
-          <h2 id="dev-map-h">Violin</h2>
-        </header>
-      </article>
-
-      <article class="card span-1 tall" aria-labelledby="scatter-h">
-        <header>
-          <h2 id="dev-map-h">Violin</h2>
-        </header>
-      </article>
-
-      <div class="text-block span-2"></div>
-
-      <article class="card span-1 tall" aria-labelledby="scatter-h">
-        <header>
-          <h2 id="dev-map-h">Violin</h2>
-        </header>
-      </article>
-
-  <!-- ========================================================== -->
-  <!--                          SECTION                           -->
-  <!-- ========================================================== -->
-  <!-- bar chart -->
-
-      <!-- Separator -->
-      <div class="separator"><span class="sep-icon"></span></div>
-
-      <article class="card span-2 tall" aria-labelledby="scatter-h">
-        <header>
-          <h2 id="dev-map-h">Bar</h2>
+          <h2>Category Clustering in Speedrunning</h2>
         </header>
       </article>
 
       <div class="text-block span-2">
         <p>
-          Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque 
-          sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. 
-          Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia 
-          integer nunc posuere. 
-        </p>
-      </div>
+These violin plots reveal the distribution of world record times across different speedrun categories, showing where most runners' times fall. The y-axis uses a logarithmic scale, meaning each step up represents times 10 times longer, helping visualise the massive range from sub-minute runs to multi-hour marathons.<br><br>
 
-  <!-- ========================================================== -->
-  <!--                          SECTION                           -->
-  <!-- ========================================================== -->
-  <!-- bar chart (tbc)-->
+Any% shows extreme concentration at the lower end with a dramatic spike at the top, reflecting both heavily optimised short runs and a few outlier games with longer completion times. Any% Glitchless displays a more balanced distribution, as removing major skips naturally spreads times across a wider range. The 100% category's broad middle section shows how completionist runs vary significantly between games. Any% No Major Glitches sits between the extremes, allowing minor tricks while preventing game-breaking shortcuts.<br><br>
 
-      <!-- Separator -->
-      <div class="separator"><span class="sep-icon"></span></div>
-
-      <div class="text-block span-2">
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque 
-          sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. 
-          Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia 
-          integer nunc posuere. 
+The narrow spikes at the bottom of each plot represent the fastest possible times, where optimization has pushed records to their theoretical limits.
         </p>
       </div>
 
       <article class="card span-2 tall" aria-labelledby="scatter-h">
         <header>
-          <h2 id="dev-map-h">Bar</h2>
+          <h3 id="hltb-h">World Record Density by Category</h3>
         </header>
+        <div class="vis-wrapper">
+          <div id="vis-hltb-violin" class="vega-host"></div>
+        </div>
       </article>
 
   <!-- ========================================================== -->
   <!--                          SECTION                           -->
   <!-- ========================================================== -->
-  <!-- area chart -->
+  <!-- strip plot -->
 
       <!-- Separator -->
       <div class="separator"><span class="sep-icon"></span></div>
+      <article class="text-block span-4" aria-labelledby="hltb-h">
+        <header>
+          <h2>Do Awards Drive Speedrunning?</h2>
+        </header>
+      </article>
+
+      <article class="card span-2 tall" aria-labelledby="scatter-h">
+        <header>
+          <h3 id="hltb-h">Awards verus Speedrunning Popularity</h3>
+        </header>
+        <div class="vis-wrapper">
+          <div id="vis-goty-strip" class="vega-host"></div>
+        </div>
+      </article>
+
+
+      <div class="text-block span-2">
+        <p>
+This strip plot examines whether The Game Awards recognition correlates with speedrunning activity for games released between 2014-2019. The y-axis uses a logarithmic scale, where each step represents a tenfold increase in total speedruns.<br><br>
+
+The "Other" category naturally dominates by sheer volume, as most games neither win nor receive nominations. However, a clear trend emerges: award-winning games cluster higher on the speedrun count axis. Winners average around 1,000-3,000 runs, while nominated games show moderate activity in the 100-1,000 range. Most non-awarded games sit around approximately 150-200 total runs.<br><br>
+
+This correlation likely works both ways. Popular games attract both speedrunners and award voters, while award recognition can subsequently boost a game's speedrunning community. The outliers are particularly interesting: a few non-awarded games punch well above their weight in speedrun popularity, suggesting cult followings independent of critical acclaim.
+      </p>
+      </div>
       
-      <div class="text-block span-4">
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque 
-          sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. 
-          Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia 
-          integer nunc posuere. 
-        </p>
-      </div>
-
-      <article class="card span-4 tall" aria-labelledby="scatter-h">
-        <header>
-          <h2 id="dev-map-h">area</h2>
-        </header>
-      </article>
-
 
     </section>
   </main>
@@ -324,19 +311,25 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      mountVega('#vis-developers-map', 'specs/developers_map_spec.json');
+      // mountVega('#vis-developers-map', 'specs/developers_map_spec.json');
+      mountVega('#vis-speedrun-map', 'specs/speedrun_nationality_map_spec.json');
+
+      mountVega('#vis-hltb-dumbbell', 'specs/hltb_dumbbell_spec.json');
+
+      mountVega('#vis-hltb-heatmap', 'specs/hltb_heatmap_spec.json');
+
+      mountVega('#vis-hltb-violin', 'specs/hltb_violin_spec.json');
+
 
       mountVega('#vis-oot-cat-pop', 'specs/oot_radar_cat_pop_spec.json');
       mountVega('#vis-oot-cat-wr', 'specs/oot_radar_cat_WR_spec.json');
       mountVega('#vis-oot-cat-spread', 'specs/oot_radar_cat_spread_spec.json');
       mountVega('#vis-oot-cat-freshness', 'specs/oot_radar_cat_freshness_spec.json');
 
-      mountVega('#vis-speedrun-area-cart', 'specs/speedrun_area_cart_spec.json');
-      mountVega('#vis-hltb', 'specs/hltb_dumbbell_spec.json');
-      mountVega('#vis-hltb-scatter', 'specs/hltb_scatter_spec.json');
-      mountVega('#vis-map2', 'map_spec.json');
-      mountVega('#vis-scatter', 'storytime_vs_score_spec.json');
-      mountVega('#vis-timeline', 'specs/genre_timeline_spec.json');
+      mountVega('#vis-hltb-stacked', 'specs/hltb_stack_area_spec.json');
+
+      mountVega('#vis-goty-strip', 'specs/goty_speedrun_strip_spec.json');
+
     });
   </script>
 </body>

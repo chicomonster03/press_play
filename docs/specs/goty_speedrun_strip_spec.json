@@ -1,0 +1,125 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 460,
+  "height": 420,
+  "data": {"url": "data/speedrun_game_data_.csv"},
+  "params": [
+    {
+      "name": "hover",
+      "select": {"type": "point", "on": "mouseover", "clear": "mouseout"}
+    }
+  ],
+  "transform": [
+    {"filter": "datum.Total_Runs != null"},
+    {"filter": "datum.Total_Runs > 0"},
+    {"calculate": "year(datum.Release_Date)", "as": "Release_Year"},
+    {"filter": "datum.Release_Year >= 2014 && datum.Release_Year <= 2019"},
+    {
+      "lookup": "Name",
+      "from": {
+        "data": {"url": "data/the_game_awards.csv"},
+        "key": "nominee",
+        "fields": ["year", "winner", "category"]
+      },
+      "default": {"year": null, "winner": null, "category": "N/A"}
+    },
+    {
+      "joinaggregate": [
+        {"op": "max", "field": "winner", "as": "won_any_award"},
+        {"op": "count", "as": "nomination_count"}
+      ],
+      "groupby": ["Name", "Release_Year"]
+    },
+    {
+      "calculate": "datum.year == datum.Release_Year && datum.won_any_award == 1 ? 'Winner' : datum.year == datum.Release_Year && datum.nomination_count > 0 ? 'Nominated' : 'Other'",
+      "as": "Award_Status"
+    },
+    {
+      "calculate": "datum.Award_Status == 'Other' ? 'N/A' : datum.category",
+      "as": "Award_Category"
+    },
+    {"calculate": "log(datum.Total_Runs) / log(10)", "as": "Log_Runs"},
+    {"calculate": "random() * 80 - 40", "as": "jitter"}
+  ],
+  "mark": {
+    "type": "circle",
+    "size": 100,
+    "opacity": 0.65
+  },
+  "encoding": {
+    "y": {
+      "field": "Log_Runs",
+      "type": "quantitative",
+      "title": "Total Speedruns (log scale)",
+      "scale": {"domain": [0, 4]},
+      "axis": {
+        "values": [0, 1, 2, 3, 4],
+        "labelExpr": "pow(10, datum.value)"
+      }
+    },
+    "x": {
+      "field": "Award_Status",
+      "type": "nominal",
+      "title": null,
+      "sort": ["Winner", "Nominated", "Other"],
+      "axis": {
+        "labelPadding": 10,
+        "labelAngle": 0
+      }
+    },
+    "xOffset": {
+      "field": "jitter",
+      "type": "quantitative"
+    },
+    "color": {
+      "field": "Award_Status",
+      "type": "nominal",
+      "scale": {
+        "domain": ["Winner", "Nominated", "Other"],
+        "range": ["#01a049", "#ff5757", "#5b9bd5"]
+      },
+      "legend": {
+        "title": "Status"
+      }
+    },
+    "stroke": {
+      "condition": {"param": "hover", "empty": false, "value": "#ff5757"},
+      "value": null
+    },
+    "strokeWidth": {
+      "condition": {"param": "hover", "empty": false, "value": 3},
+      "value": 0
+    },
+    "tooltip": [
+      {"field": "Name", "type": "nominal", "title": "Game"},
+      {"field": "Total_Runs", "type": "quantitative", "title": "Total Runs"},
+      {"field": "Release_Year", "type": "quantitative", "title": "Release Year"},
+      {"field": "Award_Status", "type": "nominal", "title": "Award Status"},
+      {"field": "Award_Category", "type": "nominal", "title": "Category"}
+    ]
+  },
+  "config": {
+    "background": "transparent",
+    "view": {"stroke": "transparent"},
+    "axis": {
+      "domainColor": "#4b4d55",
+      "gridColor": "#2c2e34",
+      "gridOpacity": 0.4,
+      "tickColor": "#4b4d55",
+      "titleFont": "VT323",
+      "titleFontSize": 18,
+      "titleColor": "#ffd057",
+      "labelFont": "VT323",
+      "labelFontSize": 14,
+      "labelColor": "#a9abb3"
+    },
+    "legend": {
+      "titleFont": "VT323",
+      "titleFontSize": 18,
+      "titleColor": "#ffd057",
+      "labelFont": "VT323",
+      "labelFontSize": 14,
+      "labelColor": "#a9abb3"
+    }
+  }
+}

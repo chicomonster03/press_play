@@ -1,82 +1,169 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": {
-    "text": "How much Bang for your Buck?",
-    "font": "Press Start 2P",
-    "fontSize": 14,
-    "color": "#ffd057"
-  },
-  "data": {"url": "cleaned/hltb_dumbbell_with_genre.csv"},
-  "width": 700,
-  "height": 400,
+  "width": 410,
+  "height": 300,
+  "data": {"url": "cleaned/hltb_w_genre.csv"},
   "params": [
     {
-      "name": "GenreSelect",
+      "name": "minReviewScore",
+      "value": 0,
       "bind": {
-        "input": "select",
-        "options": [null, "RPG", "Horror", "Adventure", "Shooter", "Action", "Platform", "Puzzle"],
-        "labels": ["All Genres", "RPG", "Horror", "Adventure", "Shooter", "Action", "Platform", "Puzzle"],
-        "name": "Filter by Genre: "
+        "input": "range",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "name": "Min Review Score: "
+      }
+    },
+    {
+      "name": "maxReviewScore",
+      "value": 100,
+      "bind": {
+        "input": "range",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "name": "Max Review Score: "
       }
     }
   ],
   "transform": [
-    {"filter": "GenreSelect == null || datum.Primary_Genre == GenreSelect"},
     {"filter": "datum.Avg_Main_Story != null"},
-    {"filter": "datum.Review_Score != null"}
+    {"filter": "datum.Avg_Completionist != null"},
+    {"filter": "datum.Primary_Genre != null"},
+    {"filter": "datum.Review_Score != null"},
+    {"filter": "datum.Review_Score >= minReviewScore && datum.Review_Score <= maxReviewScore"},
+    {
+      "filter": {
+        "field": "Primary_Genre",
+        "oneOf": ["Action", "Adventure", "RPG", "Shooter", "Horror", "Platformer"]
+      }
+    },
+    {
+      "aggregate": [
+        {"op": "mean", "field": "Avg_Main_Story", "as": "Main"},
+        {"op": "mean", "field": "Avg_Completionist", "as": "Complete"}
+      ],
+      "groupby": ["Primary_Genre"]
+    },
+    {"calculate": "'Main Story'", "as": "MainLabel"},
+    {"calculate": "'Completionist'", "as": "CompleteLabel"}
   ],
-  "mark": {
-    "type": "circle",
-    "size": 150,
-    "opacity": 0.7
-  },
   "encoding": {
-    "x": {
-      "field": "Avg_Main_Story",
-      "type": "quantitative",
-      "title": "Main Story (Hours)",
-      "axis": {
-        "titleFont": "Press Start 2P",
-        "titleColor": "#ffd057",
-        "labelFont": "VT323",
-        "labelColor": "#e6e6e6",
-        "titleFontSize": 11
-      }
-    },
     "y": {
-      "field": "Review_Score",
-      "type": "quantitative",
-      "title": "Review Score",
-      "axis": {
-        "titleFont": "Press Start 2P",
-        "titleColor": "#ffd057",
-        "labelFont": "VT323",
-        "labelColor": "#e6e6e6",
-        "titleFontSize": 11
-      }
-    },
-    "color": {
       "field": "Primary_Genre",
       "type": "nominal",
-      "title": "Genre",
-      "scale": {"scheme": "tableau20"},
-      "legend": {
-        "titleFont": "Press Start 2P",
-        "titleColor": "#ffd057",
-        "labelFont": "VT323",
-        "labelColor": "#e6e6e6",
-        "titleFontSize": 10
+      "title": null,
+      "sort": ["RPG", "Action", "Adventure", "Shooter", "Horror", "Platformer"]
+    }
+  },
+  "layer": [
+    {
+      "params": [
+        {
+          "name": "hover",
+          "select": {"type": "point", "fields": ["Primary_Genre"], "on": "mouseover", "clear": "mouseout"}
+        }
+      ],
+      "mark": {"type": "rule"},
+      "encoding": {
+        "x": {"field": "Main", "type": "quantitative", "title": "Hours"},
+        "x2": {"field": "Complete"},
+        "color": {
+          "condition": {"param": "hover", "empty": false, "value": "#4b4d55"},
+          "value": "#4b4d55"
+        },
+        "strokeWidth": {
+          "condition": {"param": "hover", "empty": false, "value": 5},
+          "value": 3
+        },
+        "tooltip": [
+          {"field": "Primary_Genre", "type": "nominal", "title": "Genre"},
+          {"field": "Main", "type": "quantitative", "title": "Main Story (hrs)", "format": ".1f"},
+          {"field": "Complete", "type": "quantitative", "title": "Completionist (hrs)", "format": ".1f"}
+        ]
       }
     },
-    "tooltip": [
-      {"field": "Name", "type": "nominal", "title": "Game"},
-      {"field": "Primary_Genre", "type": "nominal", "title": "Genre"},
-      {"field": "Review_Score", "type": "quantitative", "title": "Score"},
-      {"field": "Avg_Main_Story", "type": "quantitative", "title": "Main Story (hrs)", "format": ".1f"}
-    ]
-  },
+    {
+      "mark": {"type": "circle", "size": 300},
+      "encoding": {
+        "x": {"field": "Main", "type": "quantitative"},
+        "color": {
+          "field": "MainLabel",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Main Story", "Completionist"],
+            "range": ["#2aa198", "#ff5757"]
+          },
+          "legend": {
+            "title": "Playstyle",
+            "orient": "right",
+            "direction": "vertical"
+          }
+        },
+        "stroke": {
+          "condition": {"param": "hover", "empty": false, "value": "#ff5757"},
+          "value": null
+        },
+        "strokeWidth": {
+          "condition": {"param": "hover", "empty": false, "value": 3},
+          "value": 0
+        },
+        "tooltip": [
+          {"field": "Primary_Genre", "type": "nominal", "title": "Genre"},
+          {"field": "Main", "type": "quantitative", "title": "Main Story (hrs)", "format": ".1f"}
+        ]
+      }
+    },
+    {
+      "mark": {"type": "circle", "size": 300},
+      "encoding": {
+        "x": {"field": "Complete", "type": "quantitative"},
+        "color": {
+          "field": "CompleteLabel",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Main Story", "Completionist"],
+            "range": ["#5b9bd5", "#ff5757"]
+          }
+        },
+        "stroke": {
+          "condition": {"param": "hover", "empty": false, "value": "#ff5757"},
+          "value": null
+        },
+        "strokeWidth": {
+          "condition": {"param": "hover", "empty": false, "value": 3},
+          "value": 0
+        },
+        "tooltip": [
+          {"field": "Primary_Genre", "type": "nominal", "title": "Genre"},
+          {"field": "Complete", "type": "quantitative", "title": "Completionist (hrs)", "format": ".1f"}
+        ]
+      }
+    }
+  ],
   "config": {
+    "background": "transparent",
     "view": {"stroke": "transparent"},
-    "background": "transparent"
+    "axis": {
+      "domainColor": "#4b4d55",
+      "gridColor": "#2c2e34",
+      "gridOpacity": 0.4,
+      "tickColor": "#4b4d55",
+      "titleFont": "VT323",
+      "titleFontSize": 18,
+      "titleColor": "#ffd057",
+      "labelFont": "VT323",
+      "labelFontSize": 14,
+      "labelColor": "#a9abb3"
+    },
+    "legend": {
+      "titleFont": "VT323",
+      "titleFontSize": 18,
+      "titleColor": "#ffd057",
+      "labelFont": "VT323",
+      "labelFontSize": 14,
+      "labelColor": "#a9abb3"
+    }
   }
 }

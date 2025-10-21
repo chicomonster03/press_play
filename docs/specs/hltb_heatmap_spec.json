@@ -1,0 +1,147 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 470,
+  "height": 380,
+
+  "data": {
+    "url": "cleaned/hltb_w_genre.csv",
+    "format": {
+      "type": "csv",
+      "parse": {"Avg_Main_Story": "number", "Review_Score": "number"}
+    }
+  },
+
+  "params": [
+    {
+      "name": "genreSelect",
+      "value": null,
+      "bind": {
+        "input": "select",
+        "options": [null, "Action", "Adventure", "RPG", "Shooter", "Horror", "Platformer"],
+        "labels": [
+          "All Genres",
+          "Action",
+          "Adventure",
+          "RPG",
+          "Shooter",
+          "Horror",
+          "Platformer"
+        ],
+        "name": "Filter by Genre: "
+      }
+    },
+    {
+      "name": "hover",
+      "select": {"type": "point", "on": "mouseover", "clear": "mouseout"}
+    }
+  ],
+
+  "transform": [
+    {"filter": "datum.Avg_Main_Story != null"},
+    {"filter": "datum.Review_Score != null"},
+    {"filter": "datum.Primary_Genre != null"},
+    {"filter": "datum.Avg_Main_Story <= 100"},
+    {
+      "filter": {
+        "field": "Primary_Genre",
+        "oneOf": ["Action", "Adventure", "RPG", "Shooter", "Horror", "Platformer"]
+      }
+    },
+    {"filter": "genreSelect == null || datum.Primary_Genre == genreSelect"},
+    {
+      "bin": {"step": 10},
+      "field": "Avg_Main_Story",
+      "as": "binned_hours"
+    },
+    {
+      "bin": {"step": 10},
+      "field": "Review_Score",
+      "as": "binned_score"
+    },
+    {
+      "aggregate": [{"op": "count", "as": "game_count"}],
+      "groupby": ["binned_hours", "binned_score"]
+    },
+    {
+      "calculate": "datum.binned_hours + ' - ' + (datum.binned_hours + 10)",
+      "as": "hours_range"
+    },
+    {
+      "calculate": "datum.binned_score + ' - ' + (datum.binned_score + 10)",
+      "as": "score_range"
+    }
+  ],
+
+  "mark": {
+    "type": "rect"
+  },
+
+  "encoding": {
+    "x": {
+      "field": "binned_hours",
+      "type": "ordinal",
+      "title": "Main Story (Hours)",
+      "sort": "ascending",
+      "axis": {
+        "labelAngle": 0
+      }
+    },
+    "y": {
+      "field": "binned_score",
+      "type": "ordinal",
+      "title": "Review Score",
+      "sort": "descending"
+    },
+    "color": {
+      "field": "game_count",
+      "type": "quantitative",
+      "title": "Game Count",
+      "scale": {
+        "scheme": "turbo",
+        "type": "sqrt",
+        "domain": [1, 3550]
+      },
+      "legend": {
+        "orient": "right"
+      }
+    },
+    "stroke": {
+      "condition": {"param": "hover", "empty": false, "value": "#ff5757"},
+      "value": null
+    },
+    "strokeWidth": {
+      "condition": {"param": "hover", "empty": false, "value": 3},
+      "value": 0
+    },
+    "tooltip": [
+      {"field": "hours_range", "type": "nominal", "title": "Hours"},
+      {"field": "score_range", "type": "nominal", "title": "Score"},
+      {"field": "game_count", "type": "quantitative", "title": "Number of Games"}
+    ]
+  },
+
+  "config": {
+    "background": "transparent",
+    "view": {"stroke": "transparent"},
+    "axis": {
+      "domainColor": "#4b4d55",
+      "gridColor": "#2c2e34",
+      "gridOpacity": 0.4,
+      "tickColor": "#4b4d55",
+      "titleFont": "VT323",
+      "titleFontSize": 18,
+      "titleColor": "#ffd057",
+      "labelFont": "VT323",
+      "labelFontSize": 14,
+      "labelColor": "#a9abb3"
+    },
+    "legend": {
+      "titleFont": "VT323",
+      "titleFontSize": 18,
+      "titleColor": "#ffd057",
+      "labelFont": "VT323",
+      "labelFontSize": 14,
+      "labelColor": "#a9abb3"
+    }
+  }
+}

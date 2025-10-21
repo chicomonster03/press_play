@@ -1,0 +1,94 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+
+  "width": 1100,
+  "height": 400,
+  "data": {"url": "cleaned/hltb_w_genre.csv"},
+  "params": [
+    {
+      "name": "hover",
+      "select": {"type": "point", "fields": ["Primary_Genre"], "on": "mouseover", "clear": "mouseout"}
+    }
+  ],
+  "transform": [
+    {"filter": "datum.Release_Year != null"},
+    {"filter": "datum.Primary_Genre != null"},
+    {
+      "filter": {
+        "field": "Primary_Genre",
+        "oneOf": ["Shooter", "Action", "Adventure", "Horror", "Platformer", "RPG"]
+      }
+    },
+    {
+      "aggregate": [{"op": "count", "as": "Game_Count"}],
+      "groupby": ["Release_Year", "Primary_Genre"]
+    }
+  ],
+  "mark": {"type": "area", "line": true, "point": false, "interpolate": "monotone"},
+  "encoding": {
+    "x": {
+      "field": "Release_Year",
+      "type": "quantitative",
+      "title": "Release Year",
+      "axis": {
+        "format": "d"
+      }
+    },
+    "y": {
+      "field": "Game_Count",
+      "type": "quantitative",
+      "stack": "zero",
+      "title": "Games Released"
+    },
+    "color": {
+      "field": "Primary_Genre",
+      "type": "nominal",
+      "scale": {
+        "domain": ["Shooter", "Action", "Adventure", "Horror", "Platformer", "RPG"],
+        "range": ["#ff5757", "#ffd057", "#5b9bd5", "#9b59b6", "#2aa198", "#ff9557"]
+      },
+      "legend": {
+        "title": "Genre"
+      }
+    },
+    "strokeWidth": {
+      "condition": {"param": "hover", "empty": false, "value": 4},
+      "value": 1.5
+    },
+    "opacity": {
+      "condition": {"param": "hover", "empty": false, "value": 1},
+      "value": 0.7
+    },
+    "tooltip": [
+      {"field": "Release_Year", "type": "quantitative", "format": "d", "title": "Year"},
+      {"field": "Primary_Genre", "type": "nominal", "title": "Genre"},
+      {"field": "Game_Count", "type": "quantitative", "title": "Games Released"}
+    ]
+  },
+  "config": {
+    "background": "transparent",
+    "view": {
+        "stroke": "transparent"
+    },
+    "axis": {
+      "domainColor": "#4b4d55",
+      "gridColor": "#2c2e34",
+      "gridOpacity": 0.4,
+      "tickColor": "#4b4d55",
+      "titleFont": "VT323",
+      "titleFontSize": 18,
+      "titleColor": "#ffd057",
+      "labelFont": "VT323",
+      "labelFontSize": 14,
+      "labelColor": "#a9abb3"
+    },
+    "legend": {
+      "titleFont": "VT323",
+      "titleFontSize": 18,
+      "titleColor": "#ffd057",
+      "labelFont": "VT323",
+      "labelFontSize": 14,
+      "labelColor": "#a9abb3"
+    }
+  }
+}

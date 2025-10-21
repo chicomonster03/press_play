@@ -59,12 +59,12 @@
             "title": "Total Speedruns"
             },
             "stroke": {
-            "condition": {"param": "hover", "empty": false, "value": "#ff5757"},
-            "value": "#1c1d20"
+                "condition": {"param": "hover", "empty": false, "value": "#ff5757"},
+                "value": "#1c1d20"
             },
             "strokeWidth": {
-            "condition": {"param": "hover", "empty": false, "value": 2.5},
-            "value": 0.5
+                "condition": {"param": "hover", "empty": false, "value": 2.5},
+                "value": 0.5
             },
             "tooltip": [
             {"field": "Country", "type": "nominal", "title": "Country"},
@@ -122,10 +122,12 @@
     "config": {
         "view": {"stroke": "transparent"},
         "legend": {
-        "labelFont": "VT323",
-        "titleFont": "VT323",
-        "labelColor": "#e6e6e6",
-        "titleColor": "#ffd057"
+            "titleFont": "VT323",
+            "titleFontSize": 18,
+            "titleColor": "#ffd057",
+            "labelFont": "VT323",
+            "labelFontSize": 14,
+            "labelColor": "#a9abb3"
         }
     }
 }

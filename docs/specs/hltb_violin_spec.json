@@ -1,0 +1,153 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 500,
+  "height": 400,
+  "data": {"url": "data/speedrun_category_data.csv"},
+  "transform": [
+    {"filter": "datum.Time_0 != null"},
+    {"filter": "datum.Time_0 > 0"},
+    {
+      "calculate": "indexof(datum.Category, 'Any% Glitchless') >= 0 || (indexof(datum.Category, 'Glitchless') >= 0 && indexof(datum.Category, 'Any%') < 0 && indexof(datum.Category, '100%') < 0) ? 'Any% Glitchless' : indexof(datum.Category, 'Any% No Major Glitches') >= 0 || indexof(datum.Category, 'No Major Glitches') >= 0 ? 'Any% No Major Glitches' : indexof(datum.Category, '100%') >= 0 ? '100%' : indexof(datum.Category, 'Any%') >= 0 ? 'Any%' : null",
+      "as": "Category_Type"
+    },
+    {"filter": "datum.Category_Type != null"},
+    {"calculate": "log(datum.Time_0) / log(10)", "as": "Log_Time"},
+    {
+      "aggregate": [{"op": "count", "as": "total_count"}],
+      "groupby": ["Category_Type"]
+    },
+    {
+      "window": [{"op": "rank", "as": "rank"}],
+      "sort": [{"field": "total_count", "order": "descending"}]
+    },
+    {"filter": "datum.rank <= 6"}
+  ],
+  "params": [
+    {
+      "name": "category_filter",
+      "value": "Any%",
+      "bind": {
+        "input": "select",
+        "options": ["Any%", "Any% Glitchless", "100%", "Any% No Major Glitches"],
+        "name": "Category Type: "
+      }
+    }
+  ],
+  "layer": [
+    {
+      "data": {"url": "data/speedrun_category_data.csv"},
+      "transform": [
+        {"filter": "datum.Time_0 != null"},
+        {"filter": "datum.Time_0 > 0"},
+        {
+          "calculate": "indexof(datum.Category, 'Any% Glitchless') >= 0 || (indexof(datum.Category, 'Glitchless') >= 0 && indexof(datum.Category, 'Any%') < 0 && indexof(datum.Category, '100%') < 0) ? 'Any% Glitchless' : indexof(datum.Category, 'Any% No Major Glitches') >= 0 || indexof(datum.Category, 'No Major Glitches') >= 0 ? 'Any% No Major Glitches' : indexof(datum.Category, '100%') >= 0 ? '100%' : indexof(datum.Category, 'Any%') >= 0 ? 'Any%' : null",
+          "as": "Category_Type"
+        },
+        {"filter": "datum.Category_Type == category_filter"},
+        {"calculate": "log(datum.Time_0) / log(10)", "as": "Log_Time"},
+        {
+          "density": "Log_Time",
+          "extent": [0, 6],
+          "bandwidth": 0.2,
+          "steps": 200
+        },
+        {
+          "joinaggregate": [
+            {"op": "max", "field": "density", "as": "max_density"}
+          ]
+        },
+        {"calculate": "(datum.density / datum.max_density) * 0.4", "as": "normalized_density"},
+        {"calculate": "datum.normalized_density", "as": "density_right"},
+        {"calculate": "-datum.normalized_density", "as": "density_left"},
+        {"calculate": "pow(10, datum.value)", "as": "Time_Seconds"}
+      ],
+      "layer": [
+        {
+          "mark": {"type": "area", "opacity": 0.5, "interpolate": "monotone", "color": "#ff5757"},
+          "encoding": {
+            "x": {
+              "field": "density_left",
+              "type": "quantitative",
+              "scale": {"domain": [-0.5, 0.5]},
+              "title": null,
+              "axis": null
+            },
+            "x2": {"field": "density_right"},
+            "y": {
+              "field": "value",
+              "type": "quantitative",
+              "scale": {"domain": [0, 6]},
+              "title": "World Record Time (seconds)",
+              "axis": {
+                "values": [0, 1, 2, 3, 4, 5, 6],
+                "labelExpr": "format(pow(10, datum.value), '.2f')"
+              }
+            },
+            "tooltip": [
+              {
+                "field": "Time_Seconds",
+                "type": "quantitative",
+                "title": "Time (seconds)",
+                "format": ".2f"
+              },
+              {
+                "field": "density",
+                "type": "quantitative",
+                "title": "Density",
+                "format": ".4f"
+              }
+            ]
+          }
+        },
+        {
+          "mark": {"type": "line", "strokeWidth": 2, "color": "#ff5757"},
+          "encoding": {
+            "x": {
+              "field": "density_left",
+              "type": "quantitative",
+              "scale": {"domain": [-0.5, 0.5]}
+            },
+            "y": {
+              "field": "value",
+              "type": "quantitative",
+              "scale": {"domain": [0, 6]}
+            },
+            "order": {"field": "value", "type": "quantitative"}
+          }
+        },
+        {
+          "mark": {"type": "line", "strokeWidth": 2, "color": "#ff5757"},
+          "encoding": {
+            "x": {
+                "field": "density_right",
+                "type": "quantitative",
+                "scale": {"domain": [-0.5, 0.5]}
+            },
+            "y": {
+                "field": "value",
+                "type": "quantitative",
+                "scale": {"domain": [0, 6]}
+            },
+            "order": {"field": "value", "type": "quantitative"}
+          }
+        }
+      ]
+    }
+  ],
+  "config": {
+    "background": "transparent",
+    "view": {"stroke": "transparent"},
+    "axis": {
+      "domainColor": "#4b4d55",
+      "gridColor": "#2c2e34",
+      "gridOpacity": 0.4,
+      "tickColor": "#4b4d55",
+      "titleFont": "VT323",
+      "titleFontSize": 18,
+      "titleColor": "#ffd057",
+      "labelFont": "VT323",
+      "labelFontSize": 14,
+      "labelColor": "#a9abb3"
+    }
+  }
+}
